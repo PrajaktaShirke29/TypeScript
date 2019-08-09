@@ -37,6 +37,6 @@ const printSummary = (item: Reportable) => {
     console.log(`Summary : ${item.summary()} \n`);
 };
 
-printVehicle(oldCivic);
+// printVehicle(oldCivic);
 printSummary(oldCivic);
 printSummary(drinks);

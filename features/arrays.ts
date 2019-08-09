@@ -16,7 +16,7 @@ const cars = carMarkers[0];
 const myCar = carMarkers.pop();
 
 //prevent incompatible values
-carMarkers.push(100);
+// carMarkers.push(100);
 
 // help with 'map'
 carMarkers.map((car:string): string  => {
