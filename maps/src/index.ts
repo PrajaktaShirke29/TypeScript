@@ -1,18 +1,14 @@
 import {User} from './User';
 import {Company} from './Company';
 import {} from 'googlemaps';
-
+import { CustomMap } from "./CustomMap";
 const user = new User();
 const company = new Company();
 
+const customMap = new CustomMap('map');
 
-new google.maps.Map(document.getElementById('map'), {
-    zoom :1,
-    center : {
-        lat: 0,
-        lng: 0
-    }
-});
+customMap.addMarker(user);
+customMap.addMarker(company);
 
-
-
+// run this file with command
+// parcel index.html

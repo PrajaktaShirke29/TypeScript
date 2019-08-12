@@ -1,0 +1,48 @@
+Run ts file (by converting ts to js)with command
+    tsc filename.ts  
+        => This command will convert the ts file to js and creates the 
+        new file with .js extension
+        => Then run the .js file with command
+            node filename.js
+
+Run ts file directly with the command
+    ts-node filename.ts
+        => This will run the file directly with the above command
+
+Run map folder with command
+    parcel index.html
+         => this command will run the ts file on the browser
+         which will display the map and the location of the user
+         and the commany. On click of marker there displays a popup
+         of the location 
+
+
+sorted folder structure
+    tsc --init
+        => create ts-config file 
+        "outDir": "./build",     // .js file will be in build folder        
+        "rootDir": "./src",     // .ts file will be in scr folder
+
+    tsc -w
+        => this command keeps watch each time changes are made in ts files
+        this works like a nodemon in nodejs
+        =>This command will compile the file in which changes are made
+
+    node build/index.js
+        => this command will run the programs from buld folder
+
+    OR
+
+    nodemon build/index.js
+        => use nodemon to run the file each time
+
+    OR
+
+    npm start
+        =>Make changes in package.json file to run the project
+        "scripts": {
+            "start:build" : "tsc -w",
+            "start:run": "nodemon build/index.js",
+            "start": "concurrently npm:start:*",
+            "test": "echo \"Error: no test specified\" && exit 1"
+          },
