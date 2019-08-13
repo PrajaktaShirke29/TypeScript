@@ -1,30 +1,27 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var CsvFileReader_1 = require("./CsvFileReader");
-var reader = new CsvFileReader_1.CsvFileReader('football.csv');
-reader.read();
+var MatchReaders_1 = require("./MatchReaders");
+var Summary_1 = require("./Summary");
+// const reader = new MatchReader('football.csv');
+// reader.read();
 //Json
 // const MatchResult ={
 //     homeWin : 'H',
 //     awayWin : 'A',
 //     draw : 'D'
 // };
-//Enum
-var MatchResult;
-(function (MatchResult) {
-    MatchResult["homeWin"] = "H";
-    MatchResult["awayWin"] = "A";
-    MatchResult["draw"] = "D";
-})(MatchResult || (MatchResult = {}));
-;
-var manUnitedWins = 0;
-for (var _i = 0, _a = reader.data; _i < _a.length; _i++) {
-    var match = _a[_i];
-    if (match[1] === 'Man United' && match[5] === MatchResult.homeWin) {
-        manUnitedWins++;
-    }
-    else if (match[2] == 'Man United' && match[5] === MatchResult.awayWin) {
-        manUnitedWins++;
-    }
-}
-console.log("Man united won " + manUnitedWins + " games");
+// // 1. create an object that satisfies the 'DataReader' interface
+// const csvFileReaders = new CsvFileReaders('football.csv');
+// // 2. create an instance of MatchReaders and pass in something satisfying the 'DataReader' interface
+// const matchReaders =new MatchReaders(csvFileReaders)
+var matchReaders = MatchReaders_1.MatchReaders.fromCsv('football.csv');
+matchReaders.load();
+console.log(matchReaders.matches[0]);
+matchReaders.load();
+// const summay= new Summary(
+//     new WinAnalyzer('Man United'),
+//     // new ConsoleReport(),
+//     new HtmlReport()
+// );
+var summay = Summary_1.Summary.winsAnalysisWithHtmlReport('Man United');
+summay.buildAndPrintReport(matchReaders.matches);

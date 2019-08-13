@@ -1,8 +1,8 @@
-import { CsvFileReader} from './CsvFileReader';
+import { MatchReaders } from './MatchReaders';
+import { Summary } from "./Summary";
+// const reader = new MatchReader('football.csv');
 
-const reader = new CsvFileReader('football.csv');
-
-reader.read();
+// reader.read();
 
 //Json
 // const MatchResult ={
@@ -11,21 +11,26 @@ reader.read();
 //     draw : 'D'
 // };
 
-//Enum
-enum MatchResult{
-    homeWin = 'H',
-    awayWin = 'A',
-    draw = 'D'
-};
-let manUnitedWins = 0;
 
+// // 1. create an object that satisfies the 'DataReader' interface
+// const csvFileReaders = new CsvFileReaders('football.csv');
 
-for(let match of reader.data){
-    if(match[1] === 'Man United' && match[5] === MatchResult.homeWin){
-        manUnitedWins++;
-    }else if(match[2] == 'Man United' && match[5] === MatchResult.awayWin){
-        manUnitedWins++;
-    }
-}
+// // 2. create an instance of MatchReaders and pass in something satisfying the 'DataReader' interface
+// const matchReaders =new MatchReaders(csvFileReaders)
 
-console.log(`Man united won ${manUnitedWins} games`);
+const matchReaders =MatchReaders.fromCsv('football.csv');
+
+matchReaders.load();
+
+console.log(matchReaders.matches[0]);
+
+matchReaders.load();
+// const summay= new Summary(
+//     new WinAnalyzer('Man United'),
+//     // new ConsoleReport(),
+//     new HtmlReport()
+// );
+
+const summay= Summary.winsAnalysisWithHtmlReport('Man United');
+
+summay.buildAndPrintReport(matchReaders.matches);
