@@ -1,11 +1,14 @@
-import {Router, Request, Response} from 'express';
-import { NextFunction } from 'connect';
-import { get } from "./decorator/routes";
-import { controller }from './decorator/controller'
+import {Request, Response, NextFunction} from 'express';
+import { get, controller, use, post, bodyValidator } from "./decorator/index";
 
+function logger(req: Request, res:Response, next: NextFunction){
+    console.log('Request was made!!');
+    next();
+}
 @controller('/auth')
 class LoginContoller{
     @get('/login')
+    @use(logger)
     getLogin(req: Request, res: Response):void {
         res.send(`<div>
         <form method="POST">
@@ -21,4 +24,24 @@ class LoginContoller{
         </form></div>
         `);
     };
+
+    @post('/login')
+    @bodyValidator('email', 'password')
+    postLogin(req:Request, res:Response){
+        const {email, password} = req.body;
+    
+        if(email && password && email === 'hi@hi.com' && password === 'password'){
+            req.session = {loggedIn : true};
+    
+            res.redirect('/');
+        }else{
+            res.send('Invalid username password');
+        }
+    }
+
+    @get('/logout')
+    getLogout(req: Request, res: Response){
+        req.session = undefined;
+        res.redirect('/');
+    }
 }
