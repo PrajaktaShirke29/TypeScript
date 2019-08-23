@@ -26,7 +26,7 @@ const registerUser = (data) => {
     return new Promise((resolve, reject) => {
         auth.checkIfUserExists(data).then(result => {
             if(result.length){
-                let recordExists = {"statusCode":'200', "status":'success', 'custom':'Record already exists'};
+                var recordExists = {"statusCode":'200', "status":'success', 'custom':'Record already exists'};
                 resolve(recordExists)
             }else{
                 auth.registerUser(data).then(result => {
